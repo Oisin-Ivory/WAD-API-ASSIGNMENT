@@ -1,0 +1,17 @@
+.list-group-item {
+    padding: 2px;
+    margin-top: 5px;
+  }
+
+  #movieDetails{
+    background-color: #272727;
+    color:white;
+  }
+
+  span{
+    color:white;
+  }
+
+p{
+    font-size: large;
+  }
