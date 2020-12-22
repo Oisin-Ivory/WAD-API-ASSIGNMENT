@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./movieDetails.css";
-import { getRecommendations } from "../../api/tmdb-api";
+import { getRecommendations } from "../../api/movies-api";
 import Movie from "../recommendedCard/";
 
 
@@ -59,9 +59,9 @@ export default ({ movie}) => {
             <tr>
               <th>Genres <Icon name="film"></Icon></th>
               <td><ul>
-              {movie.genres.map(g => (
-                <li key={g.name}>
-                  {g.name}
+              {movie.genre_ids.map(g => (
+                <li key={g}>
+                  {g}
                 </li>
               ))}
               </ul></td>
@@ -75,16 +75,6 @@ export default ({ movie}) => {
                 </li>
               ))}
             </ul></td></tr>
-            <tr>
-              <th>Production Companies <Icon name="factory"></Icon></th>
-              <td><ul>
-              {movie.production_companies.map(pdc => (
-                <li key={pdc.name}>
-                  {pdc.name}
-                </li>
-              ))}
-              </ul></td>
-            </tr>
             <tr>
               <th>Production Countries <Icon name="flag"></Icon></th>
               <td><ul>

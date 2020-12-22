@@ -1,5 +1,5 @@
 {
-  "name": "moviesapp",
+  "name": "moviesApp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -37,17 +37,5 @@
     "@storybook/react": "^5.3.1",
     "babel-loader": "^8.0.6"
   },
-  "proxy": "http://localhost:8080",
-  "description": "Name: ... Oisín Ivory ...",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Oisin-Ivory/WAD-API-ASSIGNMENT.git"
-  },
-  "author": "Oisín Ivory",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Oisin-Ivory/WAD-API-ASSIGNMENT/issues"
-  },
-  "homepage": "https://github.com/Oisin-Ivory/WAD-API-ASSIGNMENT#readme"
+  "proxy":"http://localhost:8080"
 }

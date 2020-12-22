@@ -13,12 +13,16 @@ import AddMovieReviewPage from './pages/addMovieReviewPage'
 import SiteHeader from './components/siteHeader'
 import MoviesContextProvider from "./contexts/moviesContext";
 import GenresContextProvider from "./contexts/genresContext";
+import AuthProvider from "./contexts/authContext";
 import WatchLaterMoviePage from "./pages/watchLaterMovies";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/signUpPage";
 import "semantic-ui-css/semantic.min.css";
 
 const App = () => {
   return (
     <BrowserRouter>
+     <AuthProvider>
     <div className="jumbotron">
       <SiteHeader />
       <div className="container-fluid">
@@ -27,6 +31,8 @@ const App = () => {
         <Switch>
         <Route exact path="/reviews/form" component={AddMovieReviewPage} />
           <Route path="/reviews/:id" component={MovieReviewPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signup" component={SignUpPage} />,
           <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
           <Route exact path="/movies/upcoming" component={upComingMoviesPage} />
           <Route exact path="/movies/toprated" component={topRatedMoviesPage} />
@@ -39,6 +45,7 @@ const App = () => {
         </MoviesContextProvider>
       </div>
     </div>
+    </AuthProvider>
   </BrowserRouter>
   );
 };

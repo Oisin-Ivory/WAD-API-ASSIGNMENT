@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Button, Container, Divider, Segment } from "semantic-ui-react";
-import { getCredits} from "../../api/tmdb-api";
+import { getCredits} from "../../api/movies-api";
 import "./actorsView.css";
 import {Image,Table,Header,List} from 'semantic-ui-react'
 export default ({ movie }) => {

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import "../../globals/fontawesome";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BaseAuthHeader from "../authHeader"
 import "./siteHeader.css";
 import {Card,Flag,Container,Segment,Menu,Header,Icon} from 'semantic-ui-react'
 
@@ -45,6 +45,11 @@ const SiteHeader = () => {
           <li className="nav-item">
             <Link className="nav-link text-white" to="/movies/watchlater">
               Watch Later
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white">
+              <BaseAuthHeader></BaseAuthHeader>
             </Link>
           </li>
         </ul>
