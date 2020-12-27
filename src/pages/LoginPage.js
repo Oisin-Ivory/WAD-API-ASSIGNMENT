@@ -21,7 +21,7 @@ const LoginPage = props => {
   }
   return (
     <>
-    <div style={{marginTop:100,marginLeft:400,marginRight:400}}>
+    <div style={{marginTop:100}}>
     <Segment inverted placeholder >
         <Grid columns={2} stackable textAlign='center'>
         <Divider vertical><span style={{color:'white'}}>Or</span></Divider>

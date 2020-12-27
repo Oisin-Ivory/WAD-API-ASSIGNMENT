@@ -1,5 +1,7 @@
-import React, { useEffect, createContext, useReducer, useState } from "react";
-import { getMovies, getUpComingMovies,getTopRatedMovies } from "../api/movies-api";
+import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import React, { useContext,useEffect, createContext, useReducer, useState } from "react";
+import { getMovies, getUpComingMovies,getTopRatedMovies,getFavourites } from "../api/movies-api";
+
 
 export const MoviesContext = createContext(null);
 
@@ -12,6 +14,7 @@ const reducer = (state, action) => {
         ),
         upcoming: [...state.upcoming],
         toprated: [...state.toprated],
+        favoriteMovies:[...state.favoriteMovies],
         };
     case "add-watchlater":
       return {
@@ -20,6 +23,7 @@ const reducer = (state, action) => {
         ),
         movies: [...state.movies],
         toprated: [...state.toprated],
+        favoriteMovies:[...state.favoriteMovies],
       };
     case "add-watchlater-topratedmovies":
       return {
@@ -28,13 +32,17 @@ const reducer = (state, action) => {
          ),
         movies: [...state.movies],
         upcoming: [...state.upcoming],
+        favoriteMovies:[...state.favoriteMovies],
       };
     case "load":
-      return { movies: action.payload.movies, upcoming: [...state.upcoming], toprated:[...state.toprated] };
+      return { movies: action.payload.movies, upcoming: [...state.upcoming], toprated:[...state.toprated], favoriteMovies:[...state.favoriteMovies] };
     case "load-upcoming":
-      return { upcoming: action.payload.upcoming, movies: [...state.movies], toprated:[...state.toprated]  };
+      return { upcoming: action.payload.upcoming, movies: [...state.movies], toprated:[...state.toprated], favoriteMovies:[...state.favoriteMovies] };
     case "load-toprated":
-      return { toprated: action.payload.toprated, movies: [...state.movies], upcoming:[...state.upcoming] };
+      return { toprated: action.payload.toprated, movies: [...state.movies], upcoming:[...state.upcoming], favoriteMovies:[...state.favoriteMovies] };
+    case "load-favoriteMovies":
+      console.log(action.payload.favoriteMovies)
+      return { favoriteMovies: action.payload.favoriteMovies, movies: [...state.movies], toprated:[...state.toprated], upcoming:[...state.upcoming] };
     case "add-review":
       return {
         movies: state.movies.map((m) =>
@@ -44,6 +52,7 @@ const reducer = (state, action) => {
         ),
         upcoming: [...state.upcoming],
         toprated: [...state.toprated],
+        favoriteMovies:[...state.favoriteMovies],
       };
     default:
       return state;
@@ -51,7 +60,8 @@ const reducer = (state, action) => {
 };
 
 const MoviesContextProvider = (props) => {
-  const [state, dispatch] = useReducer(reducer, { movies: [], upcoming: [],toprated: []});
+  
+  const [state, dispatch] = useReducer(reducer, { movies: [], upcoming: [],toprated: [],favoriteMovies:[]});
   const [authenticated, setAuthenticated] = useState(false);
 
   const addToFavorites = (movieId) => {
@@ -94,12 +104,21 @@ const MoviesContextProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  const getFavouriteMovies = async (username) => {
+      getFavourites(username).then((favoriteMovies) => {
+      dispatch({ type: "load-favoriteMovies", payload: { favoriteMovies } });
+      console.log(favoriteMovies);
+    });
+  }
+
   return (
     <MoviesContext.Provider
       value={{
         movies: state.movies,
         upcoming: state.upcoming,
         toprated: state.toprated,
+        favoriteMovies:state.favoriteMovies,
         addToFavorites: addToFavorites,
         addToWatchLater: addToWatchLater,
         AddToWatchLaterTopRatedMovies: AddToWatchLaterTopRatedMovies,

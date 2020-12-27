@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { login, signup } from "../api/movies-api";
+import { login, signup,getFavourites } from "../api/movies-api";
 
 export const AuthContext = createContext(null);
 
@@ -34,12 +34,21 @@ const AuthContextProvider = (props) => {
     setTimeout(() => setIsAuthenticated(false), 100);
   }
 
+
+  const getFavouriteMovies = async (username) => {
+    const result = await getFavourites(username);
+    return result
+  
+  };
+
+
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
         authenticate,
         register,
+        getFavouriteMovies,
         signout,
         userName
       }}

@@ -36,17 +36,20 @@ export const getUpComingMovies = () => {
 
   export const getRecommendations = id => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    ).then(res => res.json())
-    .then(json => json.results);
+      '/api/movies/'+id+'/recommended',{headers:{
+        'Autherization':window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
   };
 
   export const getMovieReviews = id => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    )
-      .then(res => res.json())
-      .then(json => json.results);
+      '/api/movies/'+id+'/reviews',{headers:{
+        'Autherization':window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
   };
 
   export const getTopRatedMovies = () => {
@@ -56,14 +59,6 @@ export const getUpComingMovies = () => {
       }
     }
     ).then(res => res.json());
-  };
-
-  export const getCredits = id => {
-    return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}`
-    )
-      .then(res => res.json())
-      .then(json => json.cast);
   };
 
   export const login = (username, password) => {
@@ -84,4 +79,23 @@ export const signup = (username, password) => {
         method: 'post',
         body: JSON.stringify({ username: username, password: password })
     }).then(res => res.json())
+};
+
+export const getFavourites = username => {
+  return fetch(
+    '/api/users/'+username+'/favourites',{headers:{
+      'Autherization':window.localStorage.getItem('token')
+    }
+  }
+  ).then(res => res.json());
+};
+
+export const postFavourite = (username,id) => {
+  return fetch('/api/users/'+username+'/favourites', {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: 'post',
+    body: JSON.stringify({'id': id})
+}).then(res => res.json())
 };

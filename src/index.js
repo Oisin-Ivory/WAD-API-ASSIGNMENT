@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom"
@@ -36,7 +35,7 @@ const App = () => {
           <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
           <Route exact path="/movies/upcoming" component={upComingMoviesPage} />
           <Route exact path="/movies/toprated" component={topRatedMoviesPage} />
-          <Route exact path="/movies/watchlater" component={WatchLaterMoviePage} />
+          {/* <Route exact path="/movies/watchlater" component={WatchLaterMoviePage} /> */}
           <Route path="/movies/:id" component={MoviePage} />
           <Route path="/" component={HomePage} />
           <Redirect from="*" to="/" />

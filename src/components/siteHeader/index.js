@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../globals/fontawesome";
 import BaseAuthHeader from "../authHeader"
 import "./siteHeader.css";
-import {Card,Flag,Container,Segment,Menu,Header,Icon} from 'semantic-ui-react'
+import {Icon} from 'semantic-ui-react'
 
 
 const SiteHeader = () => {
@@ -40,11 +40,6 @@ const SiteHeader = () => {
           <li className="nav-item">
             <Link className="nav-link text-white" to="/movies/favorites">
               Favorites
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link text-white" to="/movies/watchlater">
-              Watch Later
             </Link>
           </li>
           <li className="nav-item">
