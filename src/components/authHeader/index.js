@@ -15,7 +15,7 @@ const BaseAuthHeader = (props) => {
     <>
       You are not logged in{" "}
 
-      <div class="ui buttons"><Link to="/login"><Button id="smallButton" inverted color='blue'>Login</Button></Link><div id="smallDiv" class="or"></div><Link to="/signup"><Button id="smallButton" inverted color='green'>SignUp</Button></Link></div>
+      <div class="ui buttons"><Link to="/login"><Button id="smallButton" inverted color='blue' onClick={() => history.push("/login")} >Login</Button></Link><div id="smallDiv" class="or"></div><Link to="/signup"><Button id="smallButton" inverted color='green'>SignUp</Button></Link></div>
 
     </>
   );

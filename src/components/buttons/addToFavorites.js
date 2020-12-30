@@ -15,9 +15,6 @@ const AddToFavoriteButton = ({ movie }) => {
     console.log("added movie :",movie.id," to user ",authContext.userName)
   };
 
-    console.log(favorites);
-
-
   return (
     <Button inverted color='blue'
       onClick={handleAddToFavorite}
