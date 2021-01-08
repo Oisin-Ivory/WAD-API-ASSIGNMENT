@@ -1,92 +1,117 @@
-# Assignment 1 - ReactJS app.
+# Assignment 2 - Web API.
 
-Name: ... Oisín Ivory ...
-
+Name: Oisín Ivory
 ## Features.
 
-...... A bullet-point list of the ADDITIONAL user features you have implemented for the  Movies Fan app ......,
+...... A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** ......,
  
- + Feature 1 - ......Added a new tab 'TopRated Movies', which displays the top rated movies from TMDB ..... 
- + Feature 2 - ......Added to the MovieDetails section which now displays recommended movies based on the one you're previewing ..... 
- + Feature 3 = ......Added a new view, recommended cards which are used to display recommended movies ..... 
- + Feature 4 = ......Added a new view, actorsView, which displays a list of actors based on a movie ..... 
- + Feature 5 = ......Added SemanticUI support and changed displays ..... 
+ + Feature 1 - Added Upcoming, displays movies in the API by date
+ + Feature 2 - Added Top Rated, displays movies based on rating
+ + Feature 3 = Added Similar movies, takes in a movie ID
 
-## Setup requirements (If required).
 
-...... Go to route folder and make an .env file with a TMDB API key in this format : 'EACT_APP_TMDB_KEY=<yourkey>', then navigate to the app's source folder and run npm install to get dependencies ........
+## Installation Requirements
 
-## API Data Model.
+Describe what needs to be on the machine to run the API (Node v?, NPM, MongoDB instance, any other 3rd party software not in the package.json). 
 
-..... List the additional TMDB endpoints used in your assignment, e.g.
+Describe getting/installing the software, perhaps:
 
-+ https://api.themoviedb.org/3/movie/top_rated - get a list of top rated movies
-+ https://api.themoviedb.org/3/movie/${id}/recommendations - get a list of recommended movies based on a specific movie
-+ https://api.themoviedb.org/3/movie/${id}/credits - get a list of a movies cast for a specific movie
-      
+```bat
+Navigate to https://github.com/Oisin-Ivory/WAD-API-LABS-2020 and download the zip version.	//The API
+Navigate to https://github.com/Oisin-Ivory/WAD-API-ASSIGNMENT and download the zip version. //The React App
+```
 
-## App Design.
+followed by installation
 
-### Component catalogue (If required).
+```bat
+for API
+Download MongoDB from https://www.mongodb.com/try/download/community
+Once that is done unzip the API, then navigate to the apis root folder using 'cd .\movies-api\'
+then run 'npm install'.
+Once it has installed the packages, add the .env file as below., then use 'npm start'
 
-....... Insert a screenshot from the Storybook UI, hi-light stories relating to new/modified components you developed - see example screenshot below] .......
+for the React App,
+Unzip the react app then run 'npm install', once that is complete, then use 'npm start'
+```
 
-![][stories0]
-![][stories1]
-Recommended Card Hovered Over
-![][stories2]
-Recommended Card Not Hovered Over
-### UI Design.
 
-...... Insert screenshots of the new/modified views you have added to the Movies Fan app. Include a caption for each one clearly stating its purpose and any user interaction it supports ........
+## API Configuration
+Describe any configuration that needs to take place before running the API. For example, creating an ``.env`` and what variables to put in it. Give an example of how this might be structured/done.
+REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
 
-![][movieHome]
->New semantic card layout that shows movie rating out of 10 with use of semantics' Rating, also new filter bar layout which makes use of semantic
+```bat
+NODE_ENV=development
+PORT=8080
+HOST=localhost
+TMDB_KEY=[TMDBKey]
+mongoDB=mongodb://localhost:27017/webAppDB
+SEED_DB=true
+SECRET=ilikecake
+```
 
-![][movieDetail0]
->Overview now gives details about the movie rating, also gives an over and has a table of details. Production countries makes use of semantics Flags to display the countries flag. Below is similar moves, one of them is hovered over revealing a short overview no more than 4 lines and a button to view more detials
 
-![][movieDetail1]
->Now displays a grided list of actors, and also displays a picture of them if it's available. Reviews section has a new button and a semantic table.
+## API Design
+Give an overview of your web API design, perhaps similar to the following: 
 
-![][review]
->Shows the full text for a movie review aswell as the author of the review. 
+|  |  GET | POST | PUT | DELETE
+| -- | -- | -- | -- | -- 
+| /api/movies |Gets a list of movies | N/A | N/A |
+| /api/movies/{movieid} | Get a Movie | N/A | N/A | N/A
+| /api/movies/{movieid}/reviews | Get all reviews for movie | Create a new review for Movie | N/A | N/A  
+| /api/movies/toprated | Get movies based on rating | N/A | N/A | N/A 
+| /api/movies/upcoming | Get all reviews for movie | N/A | N/A | N/A 
+| /api/movies/{movieid}/recommended	 | Get movies similar to movie id passed in | N/A | N/A | N/A 
+| /api/users/{username}/favourites | Get favourite movies from a sepcific user requires username| Adds a movie to users favourites requires username and movie id | N/A | N/A 
+| /api/users| N/A | logs in a user, requires username and password| N/A | N/A 
+| /api/users?action=register| N/A | signs up a user, requires username and password | N/A | N/A 
 
-## Routing.
+If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+I tried to make the routes for the API similar to [TMDB](https://developers.themoviedb.org/3) API.
 
-...... Insert a list of the additional routes supported by your Movies Fan app. If relevant, specify which of the routes require authentication, i.e. protected/private.
+## Security and Authentication
+Give details of authentication/ security implemented on the API(e.g. passport/sessions). Indicate which routes are protected.
+In order to see any movies within the app you must be logged in. The app makes use of passport.
 
-+ /movies/favorites (protected) - displays the user's favorite movies selection.
-+ /reviews/:id (public) - displays the full text of a movie review.
-+ etc.
-+ etc.
+## Integrating with React App
 
-### Data hyperlinking.
+Describe how you integrated your React app with the API. Perhaps link to the React App repo and give an example of an API call from React App. For example: 
 
-.... Use screenshots to illustrate where data hyperlinking is present in your views - include captions.
+Link to React App: https://github.com/Oisin-Ivory/WAD-API-ASSIGNMENT
 
-![][cardLink]
-> Clicking the image displayed on the card redirects you to the movie's detail page.
+~~~Javascript
+	export const getRecommendations = id => {
+    return fetch(
+      '/api/movies/'+id+'/recommended',{headers:{
+        'Authorization':window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+  };
+  
+   export const getTopRatedMovies = () => {
+    return fetch(
+      '/api/movies/toprated',{headers:{
+        'Authorization':window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+  };
 
-![][cardLinkRecommended]
-> Hovering over a recommended card, reveals some information about the movie, and it then allows you to click View Movie Details to go to the movie.
+  export const getUpComingMovies = () => {
+  return fetch(
+    '/api/movies/upcoming',{headers:{
+      'Authorization':window.localStorage.getItem('token')
+    }
+  }
+  ).then(res => res.json());
+};
+~~~
 
-![][reviewLink]	
->Clicking the 'Full Review' for a review extract will display the full text of the review
+## Extra features
+Created a signup and sign in pages. These accounts can add movies to their favourites and view their favourites. All the movies are saved for each account.
 
-## Independent learning (If relevant).
-I had used semantic ui in web App 1 so I searched how and followed the steps on the react website (https://react.semantic-ui.com/usage)
+## Independent learning.
 
----------------------------------
+. . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
 
-[model]: ./data.jpg
-[movieHome]: ./public/Updated_Cards.png
-[movieDetail0]: ./public/Updated_MovieDetails_Top.png
-[movieDetail1]: ./public/Updated_MovieDetails_Bottom.png
-[review]: ./public/Updated_Review_Section.png
-[reviewLink]: ./public/Updated_MovieDetails_Review.png
-[cardLink]: ./public/Card_Regular_Link.png
-[cardLinkRecommended]: ./public/Card_Recommended_Link.png
-[stories0]: ./public/Storybook_Actors.PNG
-[stories1]: ./public/Storybook_RecommendedMovie_Hover.PNG
-[stories2]: ./public/Storybook_RecommendedMovie_noHover.PNG
+I installed [Helmet](https://helmetjs.github.io/), to make my app more secure.
